@@ -1,7 +1,8 @@
-# Minimal Python Flask application
-This web application consists entirely of the three files mentioned in [Adam Wiggin](https://blog.heroku.com/authors/adam-wiggins)'s Python / Django blog [post](https://blog.heroku.com/python_and_django) from 2011.
-
-I've added app.json and this readme so you can:
+# Web form to create a minimal Python-Flask application
+This app is for experimenting with the minimal Python-Flask setup. It allows the user to deploy a new app consisting of three files only:
+* Procfile
+* requirements.txt
+* run.py
 
 ## Deploy to Heroku
 By clicking the button below.
