@@ -7,8 +7,10 @@ from .forms import CodeForm
 
 # ROUTES
 @app.route('/', methods=['GET', 'POST'])
-def add_item():
+def publish_code():
     form = CodeForm(request.form)
     size = { 'left': 13, 'middle': 3, 'right': 3 }
-    """Render homepage"""
-    return render_template('code_entry.html', form=form, size=size)
+    run = request.method == 'POST'
+    if run: print('ran')
+    """Render code form"""
+    return render_template('code_entry.html', form=form, size=size, run=run)

@@ -5,17 +5,17 @@
 
 <div class="row">
   <div class="col-md-6">
-    <form action="{{ url_for('add_item') }}" method="post" name="itemsform">
+    <form action="{{ url_for('publish_code') }}" method="post" name="codeform">
         {{ form.csrf_token }}
         {% for fieldname, value in form.data.items() %}
         {% if fieldname != 'csrf_token' %}
         <div class="form-group">
           {{ form[fieldname].label }}
-          {{ render_field(form[fieldname], class="form-control", rows=size[fieldname]) }}
+          {{ render_field(form[fieldname], class="form-control disable-on-submit", rows=size[fieldname]) }}
         </div>
         {% endif %}
         {% endfor %}
-        <input type="submit" value="Publish" class="btn btn-lg btn-success">
+        <input type="submit" value="Publish" class="btn btn-lg btn-success disable-on-submit">
     </form>
   </div>
   <div class="col-md-6">
@@ -23,5 +23,16 @@
     <p>After clicking "Publish", you can see the progress of the build below.</p>
   </div>
 </div>
+
+{% if run %}
+
+<script>
+$(function(){
+  $(".disable-on-submit").attr("disabled", true)
+  $(".form-group").prepend('<img id="spinner" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;" src={{ url_for('static', filename='loadingspinner.gif') }} />');
+});
+</script>
+
+{% endif %}
 
 {% endblock %}
