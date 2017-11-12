@@ -14,8 +14,9 @@ def publish_code():
     push_data = []
     form = CodeForm(request.form)
     size = { 'left': 13, 'middle': 3, 'right': 3 }
-    run = request.method == 'POST'
-    if run:
+    run = False
+    if request.method == 'POST':
+        run = True
         try:
             shutil.rmtree('tmp')
         except:

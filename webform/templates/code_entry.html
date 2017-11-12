@@ -3,8 +3,25 @@
 {% from "_formshelper.html" import render_field %}
 {% block content %}
 
+    <!-- flash messages -->
+  
+    <div class="container">
+      <div class="alert alert-success alert-dismissible hidden" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Success.</strong> Your new app is ready. Visit it here: <a href="http://my-tiny-heroku-app.heroku.com" target="_blank">http://my-tiny-heroku-app.heroku.com</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="alert alert-danger alert-dismissible hidden" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error!</strong> Something went wrong with the build. Check the logs below.
+      </div>
+    </div>
+
 <div class="row">
   <div class="col-md-6">
+    
     <form action="{{ url_for('publish_code') }}" method="post" name="codeform">
         {{ form.csrf_token }}
         {% for fieldname, value in form.data.items() %}
@@ -21,6 +38,8 @@
   <div class="col-md-6">
     <h4>Create a working app in Heroku.</h4>
     <p>After clicking "Publish", you can see the progress of the build below.</p>
+    <div class="push-log" style="white-space: pre-wrap; font-family:monospace;">
+    </div>
   </div>
 </div>
 
@@ -35,11 +54,21 @@ $(function(){
   function getBuildLog(url) {
       $.ajax({
           url: url,
-          success: function(result) { console.log(result); }
+          success: function(result) {
+              console.log(result);
+              if (result.indexOf('Released v') > -1) {
+                  $(".alert-success").removeClass("hidden");
+              } else {
+                  $(".alert-danger").removeClass("hidden");
+              }
+              $(".push-log").html(result)
+              $(".disable-on-submit").attr("disabled", false)
+              $(".spinner").remove()
+          }
       })      
   };
   $(".disable-on-submit").attr("disabled", true)
-  $(".form-group").prepend('<img id="spinner" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;" src={{ url_for('static', filename='loadingspinner.gif') }} />');
+  $(".form-group").prepend('<img class="spinner" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;" src={{ url_for('static', filename='loadingspinner.gif') }} />');
   $.ajax({
       url: url,
       headers: headers,
