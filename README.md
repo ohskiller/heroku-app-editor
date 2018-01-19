@@ -4,6 +4,10 @@ This app is for experimenting with the minimal Python-Flask setup. It allows the
 * requirements.txt
 * run.py
 
+It includes Javascript for a simple loading screen, and pipes build output from the [Heroku Platform API](https://devcenter.heroku.com/articles/build-and-release-using-the-api#build-output) to the browser.
+
+See it working [here](https://min-rdm.herokuapp.com). Or you can...
+
 ## Deploy to Heroku
 By clicking the button below.
 
