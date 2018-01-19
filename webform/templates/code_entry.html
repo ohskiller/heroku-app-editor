@@ -50,7 +50,7 @@ $(function(){
   url = 'https://api.heroku.com/apps/{{ push_data['app_name'] }}/builds/{{ push_data['push_id'] }}/result'
   headers = {'content-type': 'application/json',
       'Accept': 'application/vnd.heroku+json; version=3',
-      'Authorization': 'Bearer 30a67835-fad2-494d-80f5-e043fdf87ad7'}
+      'Authorization': 'Bearer 66a341e4-da03-4d63-97ff-add7f4949806'}
   function getBuildLog(url) {
       $.ajax({
           url: url,
